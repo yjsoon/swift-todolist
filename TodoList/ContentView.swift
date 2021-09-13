@@ -26,6 +26,12 @@ struct ContentView: View {
                         .strikethrough(todo.isCompleted)
                         .foregroundColor(todo.isCompleted ? .gray : .black)
                 }
+                .onTapGesture {
+                    let todoIndex = todos.firstIndex {
+                        $0.id == todo.id
+                    }!
+                    todos[todoIndex].isCompleted.toggle()
+                }
             }
             .navigationTitle("Todos")
         }
