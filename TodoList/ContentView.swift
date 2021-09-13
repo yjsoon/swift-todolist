@@ -8,9 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var todos = [
+        Todo(title: "Feed the animals"),
+        Todo(title: "Water the cat"),
+        Todo(title: "Walk the plants")
+    ]
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        // NavigationView
+        // List .navigationTitle
+        // Text
+        NavigationView {
+            List(todos) { todo in
+                Text(todo.title)
+            }
+            .navigationTitle("Todos")
+        }
     }
 }
 
