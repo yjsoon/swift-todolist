@@ -19,19 +19,24 @@ struct ContentView: View {
         // List .navigationTitle
         // Text
         NavigationView {
-            List(todos) { todo in
-                HStack {
-                    Image(systemName: todo.isCompleted ? "checkmark.circle.fill" : "circle")
-                    Text(todo.title)
-                        .strikethrough(todo.isCompleted)
-                        .foregroundColor(todo.isCompleted ? .gray : .black)
+            List {
+                ForEach(todos) { todo in
+                    HStack {
+                        Image(systemName: todo.isCompleted ? "checkmark.circle.fill" : "circle")
+                        Text(todo.title)
+                            .strikethrough(todo.isCompleted)
+                            .foregroundColor(todo.isCompleted ? .gray : .black)
+                    }
+                    .onTapGesture {
+                        let todoIndex = todos.firstIndex {
+                            $0.id == todo.id
+                        }!
+                        todos[todoIndex].isCompleted.toggle()
+                    }
                 }
-                .onTapGesture {
-                    let todoIndex = todos.firstIndex {
-                        $0.id == todo.id
-                    }!
-                    todos[todoIndex].isCompleted.toggle()
-                }
+                .onDelete(perform: { indexSet in
+                    todos.remove(atOffsets: indexSet)
+                })
             }
             .navigationTitle("Todos")
         }
