@@ -20,12 +20,16 @@ struct ContentView: View {
         // Text
         NavigationView {
             List {
-                Section(header: Text("Not done")) {
-                    ListOfTodosView(todos: $todos)
+                if (todos.filter{ $0.isCompleted == false }.count > 0) {
+                    Section(header: Text("Not done")) {
+                        ListOfTodosView(todos: $todos)
+                    }
                 }
                 
-                Section(header: Text("Done")) {
-                    ListOfTodosView(todos: $todos, showCompleted: true)
+                if (todos.filter{ $0.isCompleted == true }.count > 0) {
+                    Section(header: Text("Done")) {
+                        ListOfTodosView(todos: $todos, showCompleted: true)
+                    }
                 }
             }
             .navigationTitle("Todos")
