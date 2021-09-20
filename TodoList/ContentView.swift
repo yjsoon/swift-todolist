@@ -20,23 +20,13 @@ struct ContentView: View {
         // Text
         NavigationView {
             List {
-                ForEach(todos) { todo in
-                    HStack {
-                        Image(systemName: todo.isCompleted ? "checkmark.circle.fill" : "circle")
-                        Text(todo.title)
-                            .strikethrough(todo.isCompleted)
-                            .foregroundColor(todo.isCompleted ? .gray : .black)
-                    }
-                    .onTapGesture {
-                        let todoIndex = todos.firstIndex {
-                            $0.id == todo.id
-                        }!
-                        todos[todoIndex].isCompleted.toggle()
-                    }
+                Section(header: Text("Not done")) {
+                    ListOfTodosView(todos: $todos)
                 }
-                .onDelete(perform: { indexSet in
-                    todos.remove(atOffsets: indexSet)
-                })
+                
+                Section(header: Text("Done")) {
+                    ListOfTodosView(todos: $todos, showCompleted: true)
+                }
             }
             .navigationTitle("Todos")
         }
