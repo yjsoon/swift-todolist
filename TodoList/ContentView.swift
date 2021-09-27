@@ -13,6 +13,7 @@ struct ContentView: View {
         Todo(title: "Water the cat"),
         Todo(title: "Walk the plants")
     ]
+    @State var isSheetPresented = false
     
     var body: some View {
         // NavigationView
@@ -33,6 +34,19 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("Todos")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        isSheetPresented = true
+                    } label: {
+                        Image(systemName: "square.and.pencil")
+                    }
+
+                }
+            }
+        }
+        .sheet(isPresented: $isSheetPresented) {
+            NewTodoView(todos: $todos)
         }
     }
 }
