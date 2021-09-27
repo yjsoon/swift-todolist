@@ -24,7 +24,9 @@ struct ListOfTodosView: View {
                 let todoIndex = todos.firstIndex {
                     $0.id == todo.id
                 }!
-                todos[todoIndex].isCompleted.toggle()
+                withAnimation {
+                    todos[todoIndex].isCompleted.toggle()
+                }
             }
         }
         .onDelete { indexSet in
